@@ -1,0 +1,48 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>net.batmat.sonar</groupId>
+  <artifactId>corporate-pom</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <surefireargline>-Xmx1024m</surefireargline>
+    <argLine />
+
+    <surefire.version>2.17</surefire.version>
+  </properties>
+
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>${surefire.version}</version>
+          <configuration>
+            <skip>false</skip>
+            <!-- Sonar: this line will override the argLine property created by the call to jacoco:prepare-agent -->
+            <argLine>${surefireargline} ${argLine}</argLine>
+            <trimStackTrace>false</trimStackTrace>
+            <systemProperties>
+              <property>
+                <name>log4j.configuration</name>
+                <value>test-log4j.properties</value>
+              </property>
+              <property>
+                <name>java.awt.headless</name>
+                <value>true</value>
+              </property>
+            </systemProperties>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
+</project>
